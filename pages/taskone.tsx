@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Coin, getCoins } from "./api/taskone";
+import { AxiosResponse } from "axios";
 
 type TableTr = [string, string, string, string, string, string, string, string];
 
@@ -21,20 +22,23 @@ const tableHeads: TableTr = [
 
 export async function getStaticProps() {
   try {
-    const coins = await getCoins(1);
+    const {data}: any = await getCoins(1);
 
-    return { props: { coins } };
+    // console.log("coins", data);
+    
+
+    return { props: { coins: null } };
   } catch (error) {
     console.log("error", error);
 
-    return { props: { coins: null } };
+    return { props: { coins: null, filters: null } };
   }
 }
 
-const TaskOne = ({ coins }: any) => {
+const TaskOne = ({ coins, filters }: any) => {
   const [page, setPage] = useState(1); // max 25
   const {
-    data: coinData,
+    data,
     isError,
     isLoading,
   } = useQuery({
@@ -82,8 +86,8 @@ const TaskOne = ({ coins }: any) => {
           </tr>
         </thead>
         <tbody>
-          {coinData !== null &&
-            coinData.map((coin: Coin, index: number) => (
+          {data !== null &&
+            data.coins.map((coin: Coin, index: number) => (
               <tr
                 className={`px-4 ${
                   index !== 9 && "border-b-2 border-b-slate-600"
@@ -180,6 +184,9 @@ const TaskOne = ({ coins }: any) => {
             {">"}
           </button>
         </div>
+
+
+    
       </div>
     </div>
   );

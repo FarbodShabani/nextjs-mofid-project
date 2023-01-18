@@ -52,7 +52,10 @@ customAxios.interceptors.request.use((config) => config, function (error) {
 
 customAxios.interceptors.response.use((response): any => {  
     const convertedResponse: Coin[] = response.data;
-  return convertedResponse;
+
+    const filters = convertedResponse.map(({name, id}) => ({name, id}));
+
+  return {coins: convertedResponse, filters: filters};
 }, function (error) {
   console.error("there was something wrong in your response");
   return Promise.reject(error);

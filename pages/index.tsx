@@ -15,16 +15,6 @@ const Cards: Card[]=[
     link:"taskone",
     image: "https://picsum.photos/200/300"
   },
-  // {
-  //   name:"تسک 2",
-  //   link:"tasktwo",
-  //   image: "https://picsum.photos/200/300"
-  // },
-  // {
-  //   name:"تسک 3",
-  //   link:"taskthree",
-  //   image: "https://picsum.photos/200/300"
-  // },
 ]
 
 const Home: NextPage = () => {
